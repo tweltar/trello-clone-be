@@ -1,17 +1,21 @@
 package com.tweltar.TrelloClone.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name ="account")
-@JsonIgnoreProperties({"JsonLazyInitializer", "handler"})
-public class Account {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Account extends Audit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
@@ -20,8 +24,14 @@ public class Account {
 	
 	private String name;
 	private String email;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dob;
-	private int verified;
+	private int verified = 0;
+	
+	@ManyToMany(mappedBy = "accounts")
+	@JsonIgnoreProperties({"accounts", "list", "checklists", "labels"})
+	private List<Card> cards;
 	
 	public Account() {
 		
@@ -73,5 +83,13 @@ public class Account {
 
 	public void setVerified(int verified) {
 		this.verified = verified;
+	}
+
+	public List<Card> getCards() {
+		return cards;
+	}
+
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
 	}
 }

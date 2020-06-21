@@ -1,74 +1,55 @@
 package com.tweltar.TrelloClone.models;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity(name = "list")
+@Entity(name = "checklist")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class List extends Audit {
+public class Checklist extends Audit {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@JoinColumn(name = "card_id", nullable = false)
+	private Long cardId;
+	
 	private String title;
+	private String item;
 	private Integer position;
-	private Integer status;
 	
-	@OneToMany(mappedBy = "list", fetch = FetchType.LAZY,
-			cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("list")
-	private Set<Card> cards;
-	
-	public List() {
-		
-	}
-
-	public Set<Card> getCards() {
-		return cards;
-	}
-
-	public void setCards(Set<Card> cards) {
-		this.cards = cards;
-	}
-
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	public Long getCardId() {
+		return cardId;
+	}
+	public void setCardId(Long cardId) {
+		this.cardId = cardId;
+	}
 	public String getTitle() {
 		return title;
 	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
+	public String getItem() {
+		return item;
+	}
+	public void setItem(String item) {
+		this.item = item;
+	}
 	public Integer getPosition() {
 		return position;
 	}
-
 	public void setPosition(Integer position) {
 		this.position = position;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
 	}
 }
