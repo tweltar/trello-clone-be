@@ -14,7 +14,7 @@ import com.tweltar.TrelloClone.models.List;
 import com.tweltar.TrelloClone.repositories.ListRepository;
 
 @RestController
-@RequestMapping("/trelloClone/v1/lists")
+@RequestMapping("/tweltar/trelloClone/lists")
 public class ListsController {
 	@Autowired
 	ListRepository listRepository;
@@ -45,5 +45,12 @@ public class ListsController {
 		List existingList = listRepository.getOne(id);
 		BeanUtils.copyProperties(list, existingList, "id", "position", "status");
 		return listRepository.saveAndFlush(existingList);
+	}
+	
+	@RequestMapping(value = "change/list/{id}/status/{status}", method = RequestMethod.PUT)
+	public List changeStatus(@PathVariable Long id, @PathVariable Integer status) {
+		List list = listRepository.getOne(id);
+		list.setStatus(status);
+		return listRepository.saveAndFlush(list);
 	}
 }

@@ -17,7 +17,7 @@ import com.tweltar.TrelloClone.repositories.CardRepository;
 import com.tweltar.TrelloClone.repositories.ChecklistRepository;
 
 @RestController
-@RequestMapping(path = "/trelloClone/v1/checklists")
+@RequestMapping(path = "/tweltar/trelloClone/checklists")
 public class ChecklistsController {
 	@Autowired
 	ChecklistRepository checklistRepository;

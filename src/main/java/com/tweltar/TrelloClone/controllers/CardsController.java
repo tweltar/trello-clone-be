@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tweltar.TrelloClone.models.Account;
 import com.tweltar.TrelloClone.models.Card;
+import com.tweltar.TrelloClone.models.Checklist;
+import com.tweltar.TrelloClone.models.Label;
 import com.tweltar.TrelloClone.repositories.AccountRepository;
 import com.tweltar.TrelloClone.repositories.CardRepository;
+import com.tweltar.TrelloClone.repositories.ChecklistRepository;
+import com.tweltar.TrelloClone.repositories.LabelRepository;
 import com.tweltar.TrelloClone.repositories.ListRepository;
 
 @RestController
-@RequestMapping("/trelloClone/v1/cards")
+@RequestMapping("/tweltar/trelloClone/cards")
 public class CardsController {
 	@Autowired
 	CardRepository cardRepository;
@@ -29,6 +33,12 @@ public class CardsController {
 	
 	@Autowired
 	AccountRepository accountRepository;
+	
+	@Autowired
+	LabelRepository labelRepository;
+	
+	@Autowired
+	ChecklistRepository checklistRepository;
 	
 	@GetMapping
 	public List<Card> getAll() {
@@ -76,5 +86,52 @@ public class CardsController {
 		Card card = cardRepository.getOne(id);
 		card.getAccounts().remove(account);
 		cardRepository.saveAndFlush(card);
+	}
+	
+	@RequestMapping(value = "add/label/{label_id}/to/card/{id}", method = RequestMethod.PUT)
+	public Card addLabel(@PathVariable Long label_id, @PathVariable Long id) {
+		Label label = labelRepository.getOne(label_id);
+		Card card = cardRepository.getOne(id);
+		card.getLabels().add(label);
+		return cardRepository.saveAndFlush(card);
+	}
+	
+	@RequestMapping(value = "remove/label/{label_id}/from/card/{id}", method = RequestMethod.DELETE)
+	public void removeLabel(@PathVariable Long label_id, @PathVariable Long id) {
+		Label label = labelRepository.getOne(label_id);
+		Card card = cardRepository.getOne(id);
+		card.getLabels().remove(label);
+		cardRepository.saveAndFlush(card);
+	}
+	
+	@RequestMapping(value = "add/checklist/{checklist_id}/to/card/{id}", method = RequestMethod.PUT)
+	public Card addChecklist(@PathVariable Long checklist_id, @PathVariable Long id) {
+		Checklist checklist = checklistRepository.getOne(checklist_id);
+		Card card = cardRepository.getOne(id);
+		card.getChecklists().add(checklist);
+		return cardRepository.saveAndFlush(card);
+	}
+	
+	@RequestMapping(value = "remove/checklist/{checklist_id}/from/card/{id}", method = RequestMethod.DELETE)
+	public void removeChecklist(@PathVariable Long checklist_id, @PathVariable Long id) {
+		Checklist checklist = checklistRepository.getOne(checklist_id);
+		Card card = cardRepository.getOne(id);
+		card.getChecklists().remove(checklist);
+		cardRepository.saveAndFlush(card);
+	}
+	
+	@RequestMapping(value = "move/card/{id}/to/list/{list_id}", method = RequestMethod.PUT)
+	public Card moveCard(@PathVariable Long id, @PathVariable Long list_id) {
+		com.tweltar.TrelloClone.models.List list = listRepository.getOne(list_id);
+		Card card = cardRepository.getOne(id);
+		card.setList(list);
+		return cardRepository.saveAndFlush(card);
+	}
+	
+	@RequestMapping(value = "change/card/{id}/status/{status}", method = RequestMethod.PUT)
+	public Card changeStatus(@PathVariable Long id, @PathVariable Integer status) {
+		Card card = cardRepository.getOne(id);
+		card.setStatus(status);
+		return cardRepository.saveAndFlush(card);
 	}
 }

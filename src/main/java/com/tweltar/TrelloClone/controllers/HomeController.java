@@ -12,7 +12,7 @@ public class HomeController {
 	@Value("${app.version}")
 	private String appVersion;
 	
-	@GetMapping("/")
+	@GetMapping("/tweltar/trelloClone/")
 	public Map getStatus() {
 		Map map = new HashMap<String, String>();
 		map.put("name", "Trello (Clone)");

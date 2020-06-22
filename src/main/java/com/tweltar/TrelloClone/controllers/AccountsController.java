@@ -16,7 +16,7 @@ import com.tweltar.TrelloClone.models.Account;
 import com.tweltar.TrelloClone.repositories.AccountRepository;
 
 @RestController
-@RequestMapping("/trelloClone/v1/accounts")
+@RequestMapping("/tweltar/trelloClone/accounts")
 public class AccountsController {
 	@Autowired
 	AccountRepository accountRepository;

@@ -17,7 +17,7 @@ import com.tweltar.TrelloClone.repositories.CardRepository;
 import com.tweltar.TrelloClone.repositories.LabelRepository;
 
 @RestController
-@RequestMapping(path = "/trelloClone/v1/labels")
+@RequestMapping(path = "/tweltar/trelloClone/labels")
 public class LabelsController {
 	@Autowired
 	LabelRepository labelRepository;
