@@ -20,6 +20,7 @@ public class Checklist extends Audit {
 	
 	private String title;
 	private String item;
+	private Short checked = 0;
 	private Integer position;
 	
 	public Long getId() {
@@ -45,6 +46,12 @@ public class Checklist extends Audit {
 	}
 	public void setItem(String item) {
 		this.item = item;
+	}
+	public Short getChecked() {
+		return checked;
+	}
+	public void setChecked(Short checked) {
+		this.checked = checked;
 	}
 	public Integer getPosition() {
 		return position;

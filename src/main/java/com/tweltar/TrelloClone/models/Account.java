@@ -15,10 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name ="account")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Account extends Audit {
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+public class Account extends Audit {	
 	@Id
 	private String username;
 	
@@ -35,14 +32,6 @@ public class Account extends Audit {
 	
 	public Account() {
 		
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getUsername() {

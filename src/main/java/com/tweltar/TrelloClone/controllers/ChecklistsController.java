@@ -52,4 +52,11 @@ public class ChecklistsController {
 	public void delete(@PathVariable Long id) {
 		checklistRepository.deleteById(id);
 	}
+	
+	@PostMapping(value = {"{id}/{checked}"})
+	public Checklist checkedUnchecked(@PathVariable Long id, @PathVariable Short checked) {
+		Checklist checklist = checklistRepository.getOne(id);
+		checklist.setChecked(checked);
+		return checklistRepository.saveAndFlush(checklist);
+	}
 }
