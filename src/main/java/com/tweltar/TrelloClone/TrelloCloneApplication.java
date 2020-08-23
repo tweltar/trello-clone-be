@@ -11,5 +11,5 @@ public class TrelloCloneApplication {
 	public static void main(String[] args) {	
 		SpringApplication.run(TrelloCloneApplication.class, args);
 	}
-// http://localhost:8080/trelloClone/v1/
+// http://localhost:8080/tweltar/trelloClone/
 }

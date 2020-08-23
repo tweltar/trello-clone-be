@@ -2,6 +2,7 @@ package com.tweltar.TrelloClone.controllers;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import com.tweltar.TrelloClone.models.List;
 import com.tweltar.TrelloClone.repositories.ListRepository;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/tweltar/trelloClone/lists")
 public class ListsController {
 	@Autowired
@@ -43,7 +45,7 @@ public class ListsController {
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	public List update(@RequestBody final List list, @PathVariable Long id) {
 		List existingList = listRepository.getOne(id);
-		BeanUtils.copyProperties(list, existingList, "id", "position", "status");
+		BeanUtils.copyProperties(list, existingList, "id", "position", "status", "cards");
 		return listRepository.saveAndFlush(existingList);
 	}
 	

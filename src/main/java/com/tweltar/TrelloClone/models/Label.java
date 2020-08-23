@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "label")
 public class Label extends Audit {
 	@Id
@@ -19,6 +21,7 @@ public class Label extends Audit {
 	private Integer status;
 	
 	@ManyToMany(mappedBy = "labels")
+	@JsonIgnore
 	private Set<Card> cards;
 	
 	public Long getId() {

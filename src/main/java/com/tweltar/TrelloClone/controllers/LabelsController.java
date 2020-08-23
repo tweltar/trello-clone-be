@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import com.tweltar.TrelloClone.repositories.CardRepository;
 import com.tweltar.TrelloClone.repositories.LabelRepository;
 
 @RestController
+@CrossOrigin
 @RequestMapping(path = "/tweltar/trelloClone/labels")
 public class LabelsController {
 	@Autowired
@@ -43,7 +45,7 @@ public class LabelsController {
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	public Label update(@RequestBody Label label, @PathVariable Long id) {
 		Label existingLabel = labelRepository.getOne(id);
-		BeanUtils.copyProperties(label, existingLabel, "id", "status");
+		BeanUtils.copyProperties(label, existingLabel, "id", "status", "cards");
 		return labelRepository.saveAndFlush(existingLabel);
 	}
 	

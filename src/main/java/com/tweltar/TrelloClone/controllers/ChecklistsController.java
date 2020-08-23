@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import com.tweltar.TrelloClone.repositories.CardRepository;
 import com.tweltar.TrelloClone.repositories.ChecklistRepository;
 
 @RestController
+@CrossOrigin
 @RequestMapping(path = "/tweltar/trelloClone/checklists")
 public class ChecklistsController {
 	@Autowired
@@ -44,7 +46,7 @@ public class ChecklistsController {
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	public Checklist update(@PathVariable Long id, @RequestBody Checklist checklist) {
 		Checklist existingChecklist = checklistRepository.getOne(id);
-		BeanUtils.copyProperties(checklist, existingChecklist, "id", "cardId", "position");
+		BeanUtils.copyProperties(checklist, existingChecklist, "id", "cardId", "position", "checked");
 		return checklistRepository.saveAndFlush(existingChecklist);
 	}
 	
